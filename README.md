@@ -5,7 +5,7 @@ The primary goal of this project is to facilitate scheduled off-peak charging of
 
 In my case, this allows me to charge domestic storage batteries on UK electricty supplier Octopus's "Intelligent" tariff, featuring very cheap electricity between 2330 and 0530 hrs. My setup is batteries + inverter only and doesn't (yet) feature solar panels.
 
-It is necessary because although this inverter unit features "Setting 49 - Utility Charging Time" which controls when the unit can use the grid to charge the batteries, it won't actually do it while "Setting 01 - Output Source Priority" is set to "Battery first" unless the battery voltage is lower than "Setting 12 - B2AC Voltage", and setting this artifially high would cause it to unwantedly switch to grid during the peak hours.
+It is necessary because although this inverter unit features "Setting 49 - Utility Charging Time" which controls when the unit can use the grid to charge the batteries, it won't actually do it while "Setting 01 - Output Source Priority" is set to "Battery first" unless the battery voltage is lower than "Setting 12 - B2AC Voltage". Setting the B2AC voltage artifically high would cause it to unwantedly switch to grid during the peak hours. There's no way for it to happen automatically without settings intervention.
 
 The intervention is straightforward; Setting 01 is changed to "Utility First" just after 2330 hrs and changed to "Battery First" just before 0530 hrs. Meanwhile, "Setting 49 - Utility Charging Time" is already set to 0004 (0000 hrs to 0459 - unfortunately only units of hour granularity are possible, but five hours is just about sufficient to fully charge my 16x 3.2V 280Ah battery bank at 56V/50A!).
 
