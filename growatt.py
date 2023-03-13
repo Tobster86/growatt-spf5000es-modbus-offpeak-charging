@@ -4,6 +4,9 @@ from datetime import datetime, time
 
 #Input Registers
 IN_STATUS = 0
+IN_CHG_KWH_TODAY = 57
+IN_BAT_KWH_TODAY = 61
+IN_BYP_KWH_TODAY = 65
 
 #Holding Registers
 HO_OUTPUT_CONFIG = 1
@@ -37,6 +40,13 @@ OUTPUT_CONFIG_UTIL = 2
 cheapLeccyStart = time(23, 40)
 cheapLeccyEnd = time(5, 20)
 timenow = datetime.now()
+
+statDump1Start = time(5, 25)
+statDump1End = time(5, 30)
+statDump2Start = time(23, 25)
+statDump2End = time(23, 30)
+statDump3Start = time(23, 54)
+statDump3End = time(23, 59)
 
 print("System clock: " + timenow.strftime("%H:%M:%S"))
 
@@ -90,6 +100,16 @@ try:
   else:
     #Output setting unexpected.
     print("Output setting" + str(outputConfig) + "unexpected!")
+
+  #Dump stats at electricity rate changes.
+  if ((timenow.time() > statDump1Start and timenow.time() < statDump1End) or
+      (timenow.time() > statDump2Start and timenow.time() < statDump2End) or
+      (timenow.time() > statDump3Start and timenow.time() < statDump3End)):
+    with open("/home/pi/invlogs/stats-" + timenow.strftime("%Y%m%d") + ".csv", 'a') as f:
+      f.write(timenow.strftime("%Y-%m-%d %H:%M:%S,"))
+      f.write(str(inregs.registers[IN_CHG_KWH_TODAY]) + ",")
+      f.write(str(inregs.registers[IN_BAT_KWH_TODAY]) + ",")
+      f.write(str(inregs.registers[IN_BYP_KWH_TODAY]) + "\n")
 
 except Exception as e:
   print("Failed: " + str(e))
