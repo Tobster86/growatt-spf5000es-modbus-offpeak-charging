@@ -13,4 +13,4 @@ This project requires pymodbus and Python 3. It also requires exar USB Modbus dr
 
 The script should be called every 5 minutes from Cron or scheduled tasks.
 
-Please feel free to fork this project and tailor it to suit your own needs.
+This code is freely offered for any purpose, at your own risk. Please feel free to fork this project and tailor it to suit your own needs.
